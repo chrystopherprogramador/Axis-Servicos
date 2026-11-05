@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+	<OutputType>Exe</OutputType>
+	<TargetFrameworks>net9.0;net9.0-windows</TargetFrameworks>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<Nullable>enable</Nullable>
+	<RootNamespace>Axis.PrintAgent</RootNamespace>
+	<AssemblyName>axis-print-agent</AssemblyName>
+	<UserSecretsId>axis-print-agent</UserSecretsId>
+	<PublishSingleFile Condition="'$(PublishProfile)' != ''">true</PublishSingleFile>
+	<SelfContained Condition="'$(PublishProfile)' != ''">true</SelfContained>
+	<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+	<InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+
+  <!-- RIDs por TFM: WinForms só faz sentido para Windows. -->
+  <PropertyGroup Condition="'$(TargetFramework)'=='net9.0-windows'">
+	<UseWindowsForms>true</UseWindowsForms>
+	<DefineConstants>$(DefineConstants);AXIS_WINFORMS</DefineConstants>
+	<RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='net9.0'">
+	<RuntimeIdentifiers>linux-x64;osx-x64;osx-arm64</RuntimeIdentifiers>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="9.0.0" />
+	<PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0" />
+	<PackageReference Include="Microsoft.Extensions.Http" Version="9.0.0" />
+	<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" Condition="'$(OS)' == 'Windows_NT'" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<None Update="appsettings.json">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+  </ItemGroup>
+
+</Project>

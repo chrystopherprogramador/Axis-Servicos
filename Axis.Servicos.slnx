@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Axis.Conector/Axis.Conector.csproj" />
+  <Project Path="Axis.PrintAgent/Axis.PrintAgent.csproj" />
+</Solution>
